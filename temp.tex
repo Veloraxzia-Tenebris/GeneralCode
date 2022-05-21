@@ -1,0 +1,207 @@
+\documentclass[12pt]{report}
+\usepackage[ansibpaper, landscape, margin=1in]{geometry}
+
+\title{Testing Document}
+\author{Veloraxzia Tenebris}
+\date{Too damn late}
+
+\begin{document}
+\maketitle
+\begin{tiny}
+
+$
+
+\left[
+\begin{array}{cccc|c}
+a_{11} & a_{12} & a_{13} & a_{14} & b_1 & 
+a_{21} & a_{22} & a_{23} & a_{24} & b_2 & 
+a_{31} & a_{32} & a_{33} & a_{34} & b_3 & 
+a_{41} & a_{42} & a_{43} & a_{44} & b_4 & 
+\end{array}
+\right]
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+\newcommand{\cab}{\frac{a_{12}}{a_{11}}}
+\newcommand{\cac}{\frac{a_{13}}{a_{11}}}
+\newcommand{\cad}{\frac{a_{14}}{a_{11}}}
+\newcommand{\cae}{\frac{b_1}{a_{11}}}
+
+\newcommand{\cbb}{\frac{a_{22}}{a_{21}}}
+\newcommand{\cbc}{\frac{a_{23}}{a_{21}}}
+\newcommand{\cbd}{\frac{a_{24}}{a_{21}}}
+\newcommand{\cbe}{\frac{b_2}{a_{21}}}
+
+\newcommand{\ccb}{\frac{a_{32}}{a_{31}}}
+\newcommand{\ccc}{\frac{a_{33}}{a_{31}}}
+\newcommand{\ccd}{\frac{a_{34}}{a_{31}}}
+\newcommand{\cce}{\frac{b_3}{a_{31}}}
+
+\newcommand{\cdb}{\frac{a_{42}}{a_{41}}}
+\newcommand{\cdc}{\frac{a_{43}}{a_{41}}}
+\newcommand{\cdd}{\frac{a_{44}}{a_{41}}}
+\newcommand{\cde}{\frac{b_4}{a_{41}}}
+
+\left[
+\begin{array}{cccc|c}
+1 & \cab & \cac & \cad & \cae & 
+1 & \cbb & \cbc & \cbd & \cbe & 
+1 & \ccb & \ccc & \ccd & \cce & 
+1 & \cdb & \cdc & \cdd & \cde & 
+\end{array}
+\right]
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+\newcommand{\dbb}{\cbb - \cab}
+\newcommand{\dbc}{\cbc - \cac}
+\newcommand{\dbd}{\cbd - \cad}
+\newcommand{\dbe}{\cbe - \cae}
+
+\newcommand{\dcb}{\ccb - \cab}
+\newcommand{\dcc}{\ccc - \cac}
+\newcommand{\dcd}{\ccd - \cad}
+\newcommand{\dce}{\cce - \cae}
+
+\newcommand{\ddb}{\cdb - \cab}
+\newcommand{\ddc}{\cdc - \cac}
+\newcommand{\ddd}{\cdd - \cad}
+\newcommand{\dde}{\cde - \cae}
+
+\left[
+\begin{array}{cccc|c}
+1 & \cab & \cac & \cad & \cae & 
+0 & \dbb & \dbc & \dbd & \dbe & 
+0 & \dcb & \dcc & \dcd & \dce & 
+0 & \ddb & \ddc & \ddd & \dde & 
+\end{array}
+\right]
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+\newcommand{\ebc}{\frac{\dbc}{\dbb}}
+\newcommand{\ebd}{\frac{\dbd}{\dbb}}
+\newcommand{\ebe}{\frac{\dbe}{\dbb}}
+
+\newcommand{\ecc}{\frac{\dcc}{\dcb}}
+\newcommand{\ecd}{\frac{\dcd}{\dcb}}
+\newcommand{\ece}{\frac{\dce}{\dcb}}
+
+\newcommand{\edc}{\frac{\ddc}{\ddb}}
+\newcommand{\edd}{\frac{\ddd}{\ddb}}
+\newcommand{\ede}{\frac{\dde}{\ddb}}
+
+\left[
+\begin{array}{cccc|c}
+1 & \cab & \cac & \cad & \cae & 
+0 & 1 & \ebc & \ebd & \ebe & 
+0 & 1 & \ecc & \ecd & \ece & 
+0 & 1 & \edc & \edd & \ede & 
+\end{array}
+\right]
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+\newcommand{\fac}{\cac - \left( \ebc \cdot \cab \right)}
+\newcommand{\fad}{\cad - \left( \ebd \cdot \cab \right)}
+\newcommand{\fae}{\cae - \left( \ebe \cdot \cab \right)}
+
+\newcommand{\fcc}{\ecc - \ebc}
+\newcommand{\fcd}{\ecd - \ebd}
+\newcommand{\fce}{\ece - \ebe}
+
+\newcommand{\fdc}{\edc - \ebc}
+\newcommand{\fdd}{\edd - \ebd}
+\newcommand{\fde}{\ede - \ebe}
+
+\left[
+\begin{array}{cccc|c}
+1 & 0 & \fac & \fad & \fae & 
+0 & 1 & \ebc & \ebd & \ebe & 
+0 & 0 & \fcc & \fcd & \fce & 
+0 & 0 & \fdc & \fdd & \fde & 
+\end{array}
+\right]
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+\newcommand{\gcdd}{\frac{\fcd}{\fcc}}
+\newcommand{\gce}{\frac{\fce}{\fcc}}
+
+\newcommand{\gdd}{\frac{\fdd}{\fdc}}
+\newcommand{\gde}{\frac{\fde}{\fdc}}
+
+\left[
+\begin{array}{cccc|c}
+1 & 0 & \fac & \fad & \fae & 
+0 & 1 & \ebc & \ebd & \ebe & 
+0 & 0 & 1 & \gcdd & \gce & 
+0 & 0 & 1 & \gdd & \gde & 
+\end{array}
+\right]
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+\newcommand{\hdd}{\gdd - \gcdd}
+\newcommand{\hde}{\gde - \gce}
+
+\left[
+\begin{array}{cccc|c}
+1 & 0 & \fac & \fad & \fae & 
+0 & 1 & \ebc & \ebd & \ebe & 
+0 & 0 & 1 & \gcdd & \gce & 
+0 & 0 & 0 & \hdd & \hde & 
+\end{array}
+\right]
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+\newcommand{\iad}{\fad - \left( \gcdd \cdot \left( \fac \right) \right)}
+\newcommand{\iae}{\fae - \left( \gce \cdot \left( \fac \right) \right)}
+
+\newcommand{\ibd}{\ebd - \left( \gcdd \cdot \ebc \right)}
+\newcommand{\ibe}{\ebe - \left( \gce \cdot \ebc \right)}
+
+\left[
+\begin{array}{cccc|c}
+1 & 0 & 0 & \iad & \iae & 
+0 & 1 & 0 & \ibd & \ibe & 
+0 & 0 & 1 & \gcdd & \gce & 
+0 & 0 & 0 & \hdd & \hde & 
+\end{array}
+\right]
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+\newcommand{\jde}{\frac{\hde}{\hdd}}
+
+\left[
+\begin{array}{cccc|c}
+1 & 0 & 0 & \iad & \iae & 
+0 & 1 & 0 & \ibd & \ibe & 
+0 & 0 & 1 & \gcdd & \gce & 
+0 & 0 & 0 & 1 & \jde & 
+\end{array}
+\right]
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+\newcommand{\kae}{\iae - \left( \jde \cdot \left( \iad \right) \right)}
+
+\newcommand{\kbe}{\ibe - \left( \jde \cdot \left( \ibd \right) \right)}
+
+\newcommand{\kce}{\gce - \left( \jde \cdot \left( \gcdd \right) \right)}
+
+\left[
+\begin{array}{cccc|c}
+1 & 0 & 0 & 0 & \kae & 
+0 & 1 & 0 & 0 & \kbe & 
+0 & 0 & 1 & 0 & \kce & 
+0 & 0 & 0 & 1 & \jde & 
+\end{array}
+\right]
+
+$
+
+\end{tiny}
+\end{document}
