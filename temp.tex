@@ -1,207 +1,292 @@
-\documentclass[12pt]{report}
-\usepackage[ansibpaper, landscape, margin=1in]{geometry}
+\documentclass[12pt]{article}
+\usepackage[legalpaper, margin = 1 in]{geometry}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{amssymb}
+\usepackage{bm}
 
-\title{Testing Document}
-\author{Veloraxzia Tenebris}
-\date{Too damn late}
+\title{HW #4}
+\author{Sonny Ji}
+\date{ME380}
 
 \begin{document}
 \maketitle
-\begin{tiny}
+\setlength{\parskip}{5pt}
 
-$
 
-\left[
-\begin{array}{cccc|c}
-a_{11} & a_{12} & a_{13} & a_{14} & b_1 & 
-a_{21} & a_{22} & a_{23} & a_{24} & b_2 & 
-a_{31} & a_{32} & a_{33} & a_{34} & b_3 & 
-a_{41} & a_{42} & a_{43} & a_{44} & b_4 & 
-\end{array}
-\right]
+$\\$ 1.a) \dotfill $\\$
 
-\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+$G\left(s\right) = \frac{\left(s + 2\right) \left(s + 5\right)}{s \left(s + 1\right) \left(s + 3\right)}$
 
-\newcommand{\cab}{\frac{a_{12}}{a_{11}}}
-\newcommand{\cac}{\frac{a_{13}}{a_{11}}}
-\newcommand{\cad}{\frac{a_{14}}{a_{11}}}
-\newcommand{\cae}{\frac{b_1}{a_{11}}}
+The poles of $G\left(s\right)$ are at 0, -1, and -3. Thus, there is only 1 pole at $s = 0$. Thus, for $\frac{Y\left(s\right)}{R\left(s\right)}$, \fbox{the type number is 1}.
 
-\newcommand{\cbb}{\frac{a_{22}}{a_{21}}}
-\newcommand{\cbc}{\frac{a_{23}}{a_{21}}}
-\newcommand{\cbd}{\frac{a_{24}}{a_{21}}}
-\newcommand{\cbe}{\frac{b_2}{a_{21}}}
+$\\$ 1.b) \dotfill $\\$
 
-\newcommand{\ccb}{\frac{a_{32}}{a_{31}}}
-\newcommand{\ccc}{\frac{a_{33}}{a_{31}}}
-\newcommand{\ccd}{\frac{a_{34}}{a_{31}}}
-\newcommand{\cce}{\frac{b_3}{a_{31}}}
+$e_{ss} \le 0.1$
 
-\newcommand{\cdb}{\frac{a_{42}}{a_{41}}}
-\newcommand{\cdc}{\frac{a_{43}}{a_{41}}}
-\newcommand{\cdd}{\frac{a_{44}}{a_{41}}}
-\newcommand{\cde}{\frac{b_4}{a_{41}}}
+\begin{quote}
 
-\left[
-\begin{array}{cccc|c}
-1 & \cab & \cac & \cad & \cae & 
-1 & \cbb & \cbc & \cbd & \cbe & 
-1 & \ccb & \ccc & \ccd & \cce & 
-1 & \cdb & \cdc & \cdd & \cde & 
-\end{array}
-\right]
+	i) Unit step input
+	
+	Since $G\left(s\right)$ is a type 1 system, the error of a step input is 0. Thus, \fbox{any $K > 0$} will satisfy the error requirement, since $0 \le 0.1$ is always true.
+	
+\end{quote}
 
-\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+\begin{quote}
 
-\newcommand{\dbb}{\cbb - \cab}
-\newcommand{\dbc}{\cbc - \cac}
-\newcommand{\dbd}{\cbd - \cad}
-\newcommand{\dbe}{\cbe - \cae}
+	ii) Unit ramp input
 
-\newcommand{\dcb}{\ccb - \cab}
-\newcommand{\dcc}{\ccc - \cac}
-\newcommand{\dcd}{\ccd - \cad}
-\newcommand{\dce}{\cce - \cae}
+	$e_{ss} = \lim\limits_{s \to 0} s E\left(s\right) = \lim\limits_{s \to 0} \frac{1}{s K G\left(s\right)}$
 
-\newcommand{\ddb}{\cdb - \cab}
-\newcommand{\ddc}{\cdc - \cac}
-\newcommand{\ddd}{\cdd - \cad}
-\newcommand{\dde}{\cde - \cae}
+	$= \lim\limits_{s \to 0} \frac{s \left(s + 1\right) \left(s + 3\right)}{s K \left(s + 2\right) \left(s + 5\right)}$
 
-\left[
-\begin{array}{cccc|c}
-1 & \cab & \cac & \cad & \cae & 
-0 & \dbb & \dbc & \dbd & \dbe & 
-0 & \dcb & \dcc & \dcd & \dce & 
-0 & \ddb & \ddc & \ddd & \dde & 
-\end{array}
-\right]
+	$= \lim\limits_{s \to 0} \frac{\left(s + 1\right) \left(s + 3\right)}{K \left(s + 2\right) \left(s + 5\right)}$
 
-\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	$= \frac{\left(1\right) \left(3\right)}{K \left(2\right) \left(5\right)}$
 
-\newcommand{\ebc}{\frac{\dbc}{\dbb}}
-\newcommand{\ebd}{\frac{\dbd}{\dbb}}
-\newcommand{\ebe}{\frac{\dbe}{\dbb}}
+	$= \frac{3}{10K}$
 
-\newcommand{\ecc}{\frac{\dcc}{\dcb}}
-\newcommand{\ecd}{\frac{\dcd}{\dcb}}
-\newcommand{\ece}{\frac{\dce}{\dcb}}
+	$\therefore e_{ss} \le 0.1 \implies \frac{3}{10K} \le 0.1$
 
-\newcommand{\edc}{\frac{\ddc}{\ddb}}
-\newcommand{\edd}{\frac{\ddd}{\ddb}}
-\newcommand{\ede}{\frac{\dde}{\ddb}}
+	$\therefore$ \fbox{$K \ge 3$}
 
-\left[
-\begin{array}{cccc|c}
-1 & \cab & \cac & \cad & \cae & 
-0 & 1 & \ebc & \ebd & \ebe & 
-0 & 1 & \ecc & \ecd & \ece & 
-0 & 1 & \edc & \edd & \ede & 
-\end{array}
-\right]
+\end{quote}
 
-\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+\newpage
 
-\newcommand{\fac}{\cac - \left( \ebc \cdot \cab \right)}
-\newcommand{\fad}{\cad - \left( \ebd \cdot \cab \right)}
-\newcommand{\fae}{\cae - \left( \ebe \cdot \cab \right)}
+$\\$ 2.a) \dotfill $\\$
 
-\newcommand{\fcc}{\ecc - \ebc}
-\newcommand{\fcd}{\ecd - \ebd}
-\newcommand{\fce}{\ece - \ebe}
+$G\left(s\right) = \frac{200}{s^2 + 20s + 200}$
 
-\newcommand{\fdc}{\edc - \ebc}
-\newcommand{\fdd}{\edd - \ebd}
-\newcommand{\fde}{\ede - \ebe}
+$G_R\left(s\right) = \frac{Y\left(s\right)}{R\left(s\right)}$
 
-\left[
-\begin{array}{cccc|c}
-1 & 0 & \fac & \fad & \fae & 
-0 & 1 & \ebc & \ebd & \ebe & 
-0 & 0 & \fcc & \fcd & \fce & 
-0 & 0 & \fdc & \fdd & \fde & 
-\end{array}
-\right]
+$G_D\left(s\right) = \frac{Y\left(s\right)}{D\left(s\right)}$
 
-\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+$Y\left(s\right) = \left(\left(\left(R\left(s\right) - Y\left(s\right)\right) \cdot \frac{K}{0.1s + 1}\right) + D\left(s\right)\right) \cdot G\left(s\right)$
 
-\newcommand{\gcdd}{\frac{\fcd}{\fcc}}
-\newcommand{\gce}{\frac{\fce}{\fcc}}
+$Y\left(s\right) = G\left(s\right)\left(R\left(s\right) - Y\left(s\right)\right) \cdot \frac{K}{0.1s + 1} + G\left(s\right)D\left(s\right)$
 
-\newcommand{\gdd}{\frac{\fdd}{\fdc}}
-\newcommand{\gde}{\frac{\fde}{\fdc}}
+$Y\left(s\right) + \frac{G\left(s\right)K}{0.1s + 1} \cdot Y\left(s\right) = \frac{G\left(s\right)R\left(s\right)K}{0.1s + 1} + G\left(s\right)D\left(s\right)$
 
-\left[
-\begin{array}{cccc|c}
-1 & 0 & \fac & \fad & \fae & 
-0 & 1 & \ebc & \ebd & \ebe & 
-0 & 0 & 1 & \gcdd & \gce & 
-0 & 0 & 1 & \gdd & \gde & 
-\end{array}
-\right]
+$Y\left(s\right) = \frac{\frac{G\left(s\right)R\left(s\right)K}{0.1s + 1} + G\left(s\right)D\left(s\right)}{1 + \frac{G\left(s\right)K}{0.1s + 1}}$
 
-\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+$Y\left(s\right) = \left(\frac{G\left(s\right)R\left(s\right)K}{0.1s + 1} + G\left(s\right)D\left(s\right)\right) \cdot \frac{0.1s + 1}{0.1s + 1 + G\left(s\right)K}$
 
-\newcommand{\hdd}{\gdd - \gcdd}
-\newcommand{\hde}{\gde - \gce}
+$Y\left(s\right) = \frac{G\left(s\right)R\left(s\right)K}{0.1s + 1 + G\left(s\right)K} + \frac{\left(0.1s + 1\right)G\left(s\right)D\left(s\right)}{0.1s + 1 + G\left(s\right)K}$
 
-\left[
-\begin{array}{cccc|c}
-1 & 0 & \fac & \fad & \fae & 
-0 & 1 & \ebc & \ebd & \ebe & 
-0 & 0 & 1 & \gcdd & \gce & 
-0 & 0 & 0 & \hdd & \hde & 
-\end{array}
-\right]
+$Y\left(s\right) = \frac{K}{\frac{0.1s + 1}{\frac{200}{s^2 + 20s + 200}} + K} \cdot R\left(s\right) + \frac{0.1s + 1}{\frac{0.1s + 1}{\frac{200}{s^2 + 20s + 200}} + K} \cdot D\left(s\right)$
 
-\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+$Y\left(s\right) = \frac{K}{\frac{\left(0.1s + 1\right)\left(s^2 + 20s + 200\right)}{200} + K} \cdot R\left(s\right) + \frac{0.1s + 1}{\frac{\left(0.1s + 1\right)\left(s^2 + 20s + 200\right)}{200} + K} \cdot D\left(s\right)$
 
-\newcommand{\iad}{\fad - \left( \gcdd \cdot \left( \fac \right) \right)}
-\newcommand{\iae}{\fae - \left( \gce \cdot \left( \fac \right) \right)}
+$Y\left(s\right) = \frac{200K}{0.1s^3 + 2s^2 + 20s + s^2 + 20s + 200 + 200K} \cdot R\left(s\right) + \frac{20s + 200}{0.1s^3 + 2s^2 + 20s + s^2 + 20s + 200 + 200K} \cdot D\left(s\right)$
 
-\newcommand{\ibd}{\ebd - \left( \gcdd \cdot \ebc \right)}
-\newcommand{\ibe}{\ebe - \left( \gce \cdot \ebc \right)}
+$Y\left(s\right) = \frac{200K}{0.1s^3 + 3s^2 + 40s + 200 + 200K} \cdot R\left(s\right) + \frac{20s + 200}{0.1s^3 + 3s^2 + 40s + 200 + 200K} \cdot D\left(s\right)$
 
-\left[
-\begin{array}{cccc|c}
-1 & 0 & 0 & \iad & \iae & 
-0 & 1 & 0 & \ibd & \ibe & 
-0 & 0 & 1 & \gcdd & \gce & 
-0 & 0 & 0 & \hdd & \hde & 
-\end{array}
-\right]
+$Y\left(s\right) = \frac{2000K}{s^3 + 30s^2 + 400s + 2000 + 2000K} \cdot R\left(s\right) + \frac{200s + 2000}{s^3 + 30s^2 + 400s + 2000 + 2000K} \cdot D\left(s\right)$
 
-\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+$\therefore$
 
-\newcommand{\jde}{\frac{\hde}{\hdd}}
+\fbox{$G_R\left(s\right) = \frac{2000K}{s^3 + 30s^2 + 400s + 2000 + 2000K}$}
 
-\left[
-\begin{array}{cccc|c}
-1 & 0 & 0 & \iad & \iae & 
-0 & 1 & 0 & \ibd & \ibe & 
-0 & 0 & 1 & \gcdd & \gce & 
-0 & 0 & 0 & 1 & \jde & 
-\end{array}
-\right]
+\fbox{$G_D\left(s\right) = \frac{200s + 2000}{s^3 + 30s^2 + 400s + 2000 + 2000K}$}
 
-\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+$\\$ 2.b) \dotfill $\\$
 
-\newcommand{\kae}{\iae - \left( \jde \cdot \left( \iad \right) \right)}
+The characteristic equation of $G_R\left(s\right)$ is \fbox{the same} as the characteristic equation of $G_D\left(s\right)$
 
-\newcommand{\kbe}{\ibe - \left( \jde \cdot \left( \ibd \right) \right)}
+$\\$ 2.c) \dotfill $\\$
 
-\newcommand{\kce}{\gce - \left( \jde \cdot \left( \gcdd \right) \right)}
+$y_{ss} \le 0.01$
 
-\left[
-\begin{array}{cccc|c}
-1 & 0 & 0 & 0 & \kae & 
-0 & 1 & 0 & 0 & \kbe & 
-0 & 0 & 1 & 0 & \kce & 
-0 & 0 & 0 & 1 & \jde & 
-\end{array}
-\right]
+$e_{ss} \le 0.04$
 
-$
+$y_{ss} = \lim\limits_{s \to 0} s Y\left(s\right)$
 
-\end{tiny}
+$e_{ss} = \lim\limits_{s \to 0} s E\left(s\right) = \lim\limits_{s \to 0} s R\left(s\right) - \lim\limits_{s \to 0} s Y\left(s\right)$
+
+$\therefore e_{ss} = \lim\limits_{s \to 0} s R\left(s\right) - y_{ss}$
+
+$r_{ss} = \lim\limits_{s \to 0} s R\left(s\right) = \lim\limits_{t \to \infty} \bm{1}\left(t\right) = 1$
+
+$\therefore e_{ss} = 1 - y_{ss}$
+
+$\therefore 0.04 \ge 1 - y_{ss} \implies 0.96 \le y_{ss} \implies \bot$
+
+Thus, there are \fbox{no values of K} to satisfy both requirements.
+
+\newpage
+
+$\\$ 3.a) \dotfill $\\$
+
+$E\left(s\right) = R\left(s\right) - Y\left(s\right)$
+
+$Y\left(s\right) = \left(K R\left(s\right) - K Y\left(s\right) - B Y\left(s\right)\right) \cdot A \cdot \frac{1}{s}$
+
+$Y\left(s\right) = A \frac{1}{s} K R\left(s\right) - A \frac{1}{s} K Y\left(s\right) - A \frac{1}{s} B Y\left(s\right)$
+
+$Y\left(s\right) \left(1 + \frac{AK}{s} + \frac{AB}{s}\right) = \frac{AK}{s} R\left(s\right)$
+
+$Y\left(s\right) = \frac{AK}{s + AK + AB} R\left(s\right)$
+
+$\therefore E\left(s\right) = R\left(s\right) - \frac{AK}{s + AK + AB} R\left(s\right)$
+
+$= R\left(s\right) \left(1 - \frac{AK}{s + AK + AB}\right)$
+
+$= R\left(s\right) \frac{s + AB}{s + AK + AB}$
+
+$\therefore$ \fbox{$G_E\left(s\right) = \frac{s + AB}{s + AK + AB}$}
+
+$\\$ 3.b) \dotfill $\\$
+
+$E\left(s\right) = G_E\left(s\right) R\left(s\right)$
+
+$r\left(t\right) = 2 \cdot \bm{1}\left(t\right)$
+
+$R\left(s\right) = \frac{2}{s}$
+
+$E\left(s\right) = \frac{s + AB}{s + AK + AB} \cdot \frac{2}{s}$
+
+$e_{ss} = \lim\limits_{s \to 0} sE\left(s\right)$
+
+$= \lim\limits_{s \to 0} \frac{s + AB}{s + AK + AB} \cdot 2$
+
+$\therefore$ \fbox{$e_{ss} = \frac{2B}{K + B}$}
+
+$\\$ 3.c) \dotfill $\\$
+
+$r\left(t\right) = 2 t \cdot \bm{1}\left(t\right)$
+
+$R\left(s\right) = \frac{2}{s^2}$
+
+$E\left(s\right) = \frac{s + AB}{s + AK + AB} \cdot \frac{2}{s^2}$
+
+$e_{ss} = \lim\limits_{s \to 0} \frac{s + AB}{s + AK + AB} \cdot \frac{2}{s}$
+
+$= \lim\limits_{s \to 0} \frac{2s + 2AB}{s^2 + AKs + ABs}$
+
+$= \frac{2AB}{0}$
+
+$\therefore$ \fbox{$e_{ss} = \infty$}
+
+$\\$ 3.d) \dotfill $\\$
+
+$r\left(t\right) = 2 t^2 \cdot \bm{1}\left(t\right)$
+
+$R\left(s\right) = \frac{4}{s^3}$
+
+$E\left(s\right) = \frac{s + AB}{s + AK + AB} \cdot \frac{4}{s^3}$
+
+$e_{ss} = \lim\limits_{s \to 0} \frac{s + AB}{s + AK + AB} \cdot \frac{4}{s^2}$
+
+$= \lim\limits_{s \to 0} \frac{4s + 4AB}{s^3 + AKs^2 + ABs^2}$
+
+$= \frac{4AB}{0}$
+
+$\therefore$ \fbox{$e_{ss} = \infty$}
+
+\newpage
+
+$\\$ 4.a) \dotfill $\\$
+
+$G\left(s\right) = \frac{1}{s + 2}$
+
+$G_c\left(s\right) = \frac{K}{s + 10}$
+
+\begin{quote}
+
+	i)
+
+	The open-loop transfer function $G\left(s\right) G_c\left(s\right)$ is $\frac{K}{\left(s + 2\right) \left(s + 10\right)}$ which has no poles at $s = 0$, thus the system is \fbox{type number 0}.
+
+\end{quote}
+
+\begin{quote}
+
+	ii)
+
+	$e_{ss} \le 0.2$
+
+	Since the system is type 0, the response to a step input is:
+	
+	$e_{ss} = \lim\limits_{s \to 0} \frac{1}{1 + G\left(s\right) G_c\left(s\right)}$
+
+	$= \lim\limits_{s \to 0} \frac{1}{1 + \frac{K}{\left(s + 2\right) \left(s + 10\right)}}$
+
+	$= \lim\limits_{s \to 0} \frac{\left(s + 2\right) \left(s + 10\right)}{\left(s + 2\right) \left(s + 10\right) + K}$
+
+	$= \frac{\left(2\right) \left(10\right)}{\left(2\right) \left(10\right) + K}$
+
+	$= \frac{20}{20 + K}$
+
+	$\therefore 0.2 \ge \frac{20}{20 + K} \implies$ \fbox{$80 \le K$}
+
+\end{quote}
+
+$\\$ 4.b) \dotfill $\\$
+
+$G_c\left(s\right) = \frac{K}{s \left(s + 10\right)}$
+
+\begin{quote}
+
+	i)
+
+	The open-loop transfer function $G\left(s\right) G_c\left(s\right)$ is $\frac{K}{s \left(s + 2\right) \left(s + 10\right)}$ which has one poles at $s = 0$, thus the system is \fbox{type number 1}.
+
+\end{quote}
+
+\begin{quote}
+
+	ii)
+
+	$e_{ss} \le 0.2$
+
+	Since the system is type 1, the response to a step input is 0. Thus, since $0 \le 0.2$ is always true, \fbox{any $K > 0$} will satisfy the requirement.
+
+\end{quote}
+
+$\\$ 4.c) \dotfill $\\$
+
+\begin{quote}
+
+	i)
+
+	For $G_c\left(s\right) = \frac{K}{s + 10}$:
+
+	$\frac{Y\left(s\right)}{R\left(s\right)} = \frac{G\left(s\right) G_c\left(s\right)}{1 + G\left(s\right) G_c\left(s\right)}$
+
+	$= \frac{\frac{K}{\left(s + 2\right) \left(s + 10\right)}}{1 + \frac{K}{\left(s + 2\right) \left(s + 10\right)}}$
+
+	$= \frac{1}{\frac{\left(s + 2\right) \left(s + 10\right)}{K} + 1}$
+
+	$= \frac{K}{\left(s + 2\right) \left(s + 10\right) + K}$
+
+	$=$ \fbox{$\frac{K}{s^2 + 12s + 20 + K}$}
+
+	For $G_c\left(s\right) = \frac{K}{s \left(s + 10\right)}$:
+
+	$\frac{Y\left(s\right)}{R\left(s\right)} = \frac{\frac{K}{s \left(s + 2\right) \left(s + 10\right)}}{1 + \frac{K}{s \left(s + 2\right) \left(s + 10\right)}}$
+
+	$= \frac{1}{\frac{s \left(s + 2\right) \left(s + 10\right)}{K} + 1}$
+
+	$= \frac{K}{s \left(s + 2\right) \left(s + 10\right) + K}$
+
+	$=$ \fbox{$\frac{K}{s^3 + 12s^2 + 20s + K}$}
+
+\end{quote}
+
+\begin{quote}
+
+	ii)
+
+	Attached at end.
+
+\end{quote}
+
+$\\$ 4.d) \dotfill $\\$
+
+The system with $G_c\left(s\right) = \frac{K}{s \left(s + 10\right)}$ has better steady-state performance, since the output settles to 1, meaning the error is 0, while the system with $G_c\left(s\right) = \frac{K}{s + 10}$ always has an offset in the output. This matches the steady-state error results from (b).
+
+
 \end{document}
