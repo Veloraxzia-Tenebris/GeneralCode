@@ -5,8 +5,8 @@
 	Idk how to code, plz don't be mean to me :pleading:
 */
 
-#include <FlexCAN.h>
-#include "pitches.h"
+#include <ACAN_T4.h>
+#include <Arduino.h>
 
 // Definitions because words mean things and numbers are ???
 // Communication stuff
@@ -43,6 +43,10 @@
 #define BRAKE_LIGHT		20
 #define SOUND			24
 
+// Thermistor stuff
+#define REFERENCE_RESISTOR 10000
+#define THERMISTOR_BETA 8
+
 // States for inputs from dash
 int regenSW = 0;
 int pumpSW = 0;
@@ -71,10 +75,13 @@ int torque = 0;
 // Convert brake value
 int brakes = 0;
 // Convert temperature value
-int radTemp = 0;
+float radTempRaw = 0; // Radiator thermistor resistance value
+float radTemp = 0;
 // Other internal counters and stuff
 int startBTNPressTimeCounter = 0;
-int delayTime = 100;
+int delayTime = 10;
+// CAN variables
+CANMessage msg;
 
 
 
@@ -98,11 +105,18 @@ void setup() {
 	pinMode(BRAKE_LIGHT, OUTPUT);
 	pinMode(SDC, OUTPUT);
 	// CAN stuff
-	delay(1000);
-	Can2.begin();
-	msg.ext = 0;
+	delay(400);
+	ACAN_T4_Settings settings (500 * 1000); // 500 kbit/s
+	settings.mLoopBackMode = false;
+	settings.mSelfReceptionMode = false;
+	const uint32_t errorCode = ACAN_T4::can3.begin(settings);
+	if(0 == errorCode) {
+		Serial.println("CAN3: OK");
+	} else {
+		Serial.print("Error can3: 0x");
+		Serial.println(errorCode, HEX);
+	}
 	msg.id = 0x0C0;
-	msg.len = 2;
 	msg.buf[0] = 0; // Torque command
 	msg.buf[1] = 0; // Torque command
 	msg.buf[2] = 0; // Speed command
@@ -216,6 +230,7 @@ void readDashInputs() {
 		radFanSW = 0;
 	}
 }
+
 // Function to read all analog inputs (APPS / Brakes / Thermistor)
 void readAnalogInputs() {
 	// APPS 1 stuff
@@ -247,6 +262,7 @@ void readAnalogInputs() {
 	Serial.print("RAD_THERM is ");
 	Serial.println(radTherm);
 }
+
 // Function to write all the motor controller signals
 void writeMCOutputs() {
 	// Disable regenerative braking
@@ -277,6 +293,7 @@ void writeMCOutputs() {
 		}
 	}
 }
+
 // Function to convert analog values from raw to good
 void convertAnalogInputs() {
 	// APPS stuff
@@ -288,8 +305,11 @@ void convertAnalogInputs() {
 	// Brake stuff
 	brakes = map(brake, 0, 1023, 0, 511);
 	// Thermistor stuff
-	radTempRaw = map(radTherm, 0, 1023, 0, 511);
+	radTempRaw = REFERENCE_RESISTOR / (1023 / (radTherm - 1));
+	// (1 / ((log(Thermistor resistance / Nominal thermistor resistance) / Thermistor beta) + (1 / (Nominal thermistor temperature + 273.15)))) - 273.15
+	radTemp = (1 / ((log(radTempRaw / 10000) / THERMISTOR_BETA) + (1 / 298.15))) - 273.15;
 }
+
 // Function to do all the other stuff in the car
 void otherCarStuff() {
 	// Brake stuff
@@ -299,33 +319,41 @@ void otherCarStuff() {
 		digitalWrite(BRAKE_LIGHT, LOW);
 	}
 	// Sound device stuff
-
-
+	tone(SOUND, 784, 4000);
 	// SDC stuff
 	digitalWrite(SDC, HIGH);
+	// Cooling stuff
+	if(radTemp > 40) {
+		digitalWrite(ACC_FAN, HIGH);
+		digitalWrite(RAD_FAN, HIGH);
+	} else {
+		if(accFanSW == 1) {
+			digitalWrite(ACC_FAN, HIGH);
+		} else {
+			digitalWrite(ACC_FAN, LOW);
+		}
+		if(radFanSW == 1) {
+			digitalWrite(RAD_FAN, HIGH);
+		} else {
+			digitalWrite(RAD_FAN, LOW);
+		}
+	}
 }
+
 // Function to set CAN message to motor controller
 void CANTorqueCommand() {
-	// Max torque is 7 parallel cells * 35 peak discharge current * Kt = 0.61 = 149.45 Nm
+	msg.id = 0x0C0;
+	// Max torque is (Parallel cells = 7) * (Peak discharge current = 35) * (Kt = 0.61) = 149.45 Nm
 	torque = map(acceleratorBoth, 0, 511, 0, 1494)
 	// Total torque = ((x + (y * 256)) / 10) Nm
-	msg.buf[0] = torque & 0b11111111; // Torque command => x
-	msg.buf[1] = torque >> 8; // Torque command => y
-	msg.buf[2] = 0;
-	msg.buf[3] = 0;
-	msg.buf[4] = 1;
-	msg.buf[5] = 1;
-	msg.buf[6] = 0;
-	msg.buf[7] = 0;
+	msg.buf[0] = torque & 0b11111111; // Torque command => x, first 8 bits
+	msg.buf[1] = (torque >> 8) & 0b11111111; // Torque command => y, second 8 bits
+	msg.buf[2] = 0; // Speed command => Off
+	msg.buf[3] = 0; // Speed command => Off
+	msg.buf[4] = 1; // Direction command => Forwards
+	msg.buf[5] = 1; // Inverter enable => On
+	msg.buf[6] = 0; // Commanded torque limit => Default to EEPROM
+	msg.buf[7] = 0; // Commanded torque limit => Default to EEPROM
 	// Send message
-	msg.buf[0]++;
-	Can1.write(msg);
-	msg.buf[0]++;
-	Can1.write(msg);
-	msg.buf[0]++;
-	Can1.write(msg);
-	msg.buf[0]++;
-	Can1.write(msg);
-	msg.buf[0]++;
-	Can1.write(msg);
+	ACAN_T4::can3.tryToSend(msg);
 }
