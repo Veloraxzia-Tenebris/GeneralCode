@@ -1,0 +1,15 @@
+\LoadClass{article}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{SRDs}{2025/03/11 Custom SRD class}
+
+\RequirePackage{algorithmic}
+\RequirePackage[center, explicit]{titlesec}
+
+\titleformat{\section}[block]{\normalfont\Large\filcenter\nostruts}{\newpage\titleline[c]{\textbf{\dotfill}}\vspace{1ex}\titleline[c]{\textbf{(\thesection)}}}{0em}{\vspace{1ex}\titleline[c]{\textbf{#1}}\vspace{1ex}\titleline[c]{\textbf{\dotfill}}}
+\titlespacing{\section}{0em}{2ex}{2ex}
+
+\titleformat{\subsection}[block]{\normalfont\filcenter\nostruts}{\titleline[c]{\hspace{4em}\dotfill\hspace{4em}}\titleline[c]{\hspace{2em}\(\iddots\)\hfill\textbf{(\thesubsection)}\hfill\(\ddots\)\hspace{2em}}}{0em}{\vspace{-0.5ex}\titleline[c]{\hspace{2em}\(\ddots\)\hfill\textbf{#1}\hfill\(\iddots\)\hspace{2em}}\vspace{1ex}\titleline[c]{\hspace{4em}\dotfill\hspace{4em}}}
+\titlespacing{\subsection}{0em}{2ex}{2ex}
+
+\titleformat{\subsubsection}[block]{\normalfont\filcenter\nostruts}{\titleline[c]{\hspace{4em}\dotfill(\thesubsubsection)\dotfill\hspace{4em}}}{0pt}{\vspace{1ex}\titleline[c]{\hspace{6em}\dotfill\hspace{1em}\underline{#1}\hspace{1em}\dotfill\hspace{6em}}}
+\titlespacing{\subsubsection}{0em}{2ex}{2ex}
